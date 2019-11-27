@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private var posX = 0F
     private var posY = 0F
 
+    var gameMatrixArray = Array (4,{IntArray(4)})
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val action: Int = MotionEventCompat.getActionMasked(event)
@@ -93,22 +94,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //create and fill game matrix
+        var x = 0
+
+        for (i in 0..3){
+            for (j in 0..3){
+                gameMatrixArray[i][j] = x
+                x++
+            }
+        }
 
         image = findViewById(R.id.image1)
 
         image?.x = 300F
         image?.y = 500F
         image?.tag = "test"
-
     }
 
-
-
     fun moveBlock(direction: String) {
+
+        moveArray(direction)
+
+        println("Matrix")
+        for (i in 0..3){
+            for (j in 0..3) {
+                print(gameMatrixArray[i][j])
+                print(",")
+            }
+            println()
+        }
+
         println(direction)
 
         println ("pos x->" +image?.x)
@@ -144,5 +163,45 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun moveArray(direction: String) {
 
+        //get position of zero
+        var posX = 0
+        var posY = 0
+
+        for (i in 0..3){
+            for (j in 0..3){
+                if (gameMatrixArray[i][j] == 0) {
+                    posX = i
+                    posY = j
+                }
+            }
+        }
+        // println ("Pozicia nuly v poli->" + posX + posY)
+        //check direction and position and move if possible
+        if (direction == "right"){
+            if (posY != 3) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX][posY+1]
+                gameMatrixArray[posX][posY+1]=0
+            }
+        }
+        if (direction == "left"){
+            if (posY != 0) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX][posY-1]
+                gameMatrixArray[posX][posY-1]=0
+            }
+        }
+        if (direction == "up"){
+            if (posX != 0) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX-1][posY]
+                gameMatrixArray[posX-1][posY] = 0
+            }
+        }
+        if (direction == "down"){
+            if (posY != 3) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX+1][posY]
+                gameMatrixArray[posX+1][posY] = 0
+            }
+        }
+    }
 }
