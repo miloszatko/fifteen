@@ -180,27 +180,27 @@ class MainActivity : AppCompatActivity() {
         // println ("Pozicia nuly v poli->" + posX + posY)
         //check direction and position and move if possible
         if (direction == "right"){
-            if (posY != 3) {
-                gameMatrixArray[posX][posY] = gameMatrixArray[posX][posY+1]
-                gameMatrixArray[posX][posY+1]=0
+            if (posY != 0) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX][posY-1]
+                gameMatrixArray[posX][posY-1] = 0
             }
         }
         if (direction == "left"){
-            if (posY != 0) {
-                gameMatrixArray[posX][posY] = gameMatrixArray[posX][posY-1]
-                gameMatrixArray[posX][posY-1]=0
+            if (posY != 3) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX][posY+1]
+                gameMatrixArray[posX][posY+1] = 0
             }
         }
         if (direction == "up"){
-            if (posX != 0) {
-                gameMatrixArray[posX][posY] = gameMatrixArray[posX-1][posY]
-                gameMatrixArray[posX-1][posY] = 0
+            if (posX != 3) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX+1][posY]
+                gameMatrixArray[posX+1][posY] = 0
             }
         }
         if (direction == "down"){
-            if (posY != 3) {
-                gameMatrixArray[posX][posY] = gameMatrixArray[posX+1][posY]
-                gameMatrixArray[posX+1][posY] = 0
+            if (posX != 0) {
+                gameMatrixArray[posX][posY] = gameMatrixArray[posX-1][posY]
+                gameMatrixArray[posX-1][posY] = 0
             }
         }
     }
