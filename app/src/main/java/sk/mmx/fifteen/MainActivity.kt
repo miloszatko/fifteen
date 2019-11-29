@@ -1,19 +1,13 @@
 package sk.mmx.fifteen
 
 import android.animation.ObjectAnimator
-import android.graphics.Color
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.VelocityTracker
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.view.MotionEventCompat
-import androidx.core.view.marginLeft
-import androidx.core.view.marginStart
-import androidx.core.view.marginTop
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.absoluteValue
 
@@ -21,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mVelocityTracker: VelocityTracker? = null
     private var image: ImageView? = null
+
 
     private var direction: String = ""
     private var posX = 0F
@@ -56,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     //
 
                     // println(("X velocity: ${getXVelocity(pointerId)}"))
-                   // println(("Y velocity: ${getYVelocity(pointerId)}"))
+                    // println(("Y velocity: ${getYVelocity(pointerId)}"))
                     if (xVelocity.absoluteValue > yVelocity.absoluteValue) {
                         if (xVelocity > 0) {
                             direction = "right"
@@ -98,6 +93,72 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        //create block vars and put them into array
+        var block01 = ImageView(this)
+        var block02 = ImageView(this)
+        var block03 = ImageView(this)
+        var block04 = ImageView(this)
+        var block05 = ImageView(this)
+        var block06 = ImageView(this)
+        var block07 = ImageView(this)
+        var block08 = ImageView(this)
+        var block09 = ImageView(this)
+        var block10 = ImageView(this)
+        var block11 = ImageView(this)
+        var block12 = ImageView(this)
+        var block13 = ImageView(this)
+        var block14 = ImageView(this)
+        var block15 = ImageView(this)
+        var blocks = arrayOf(
+            block01,
+            block02,
+            block03,
+            block04,
+            block05,
+            block06,
+            block07,
+            block08,
+            block09,
+            block10,
+            block11,
+            block12,
+            block13,
+            block14,
+            block15
+        )
+
+
+
+        var index = 100
+        var column = 1
+        //init image views in block array
+        for (item in blocks) {
+            item.setImageResource(R.drawable.block)
+            item.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+
+            item.layoutParams.width = 100
+            item.layoutParams.height = 100
+
+            item.x = (index).toFloat()
+            item.y = (column*index).toFloat()
+
+            myLayout.addView(item)
+
+            index+=100
+            column+=1
+
+            if (column==5) {
+                column=1
+                index+=100
+            }
+
+        }
+
+
         //create and fill game matrix
         var x = 0
 
@@ -113,6 +174,8 @@ class MainActivity : AppCompatActivity() {
         image?.x = 300F
         image?.y = 500F
         image?.tag = "test"
+
+
     }
 
     fun moveBlock(direction: String) {
